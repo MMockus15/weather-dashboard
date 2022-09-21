@@ -1,0 +1,23 @@
+body {
+	height: 100vh;
+	margin: 0;
+	background: rgb(132, 127, 127);
+	/* background-image: url("./images/lightening.jpg"); */
+	font: white;	
+}
+
+/* .form {
+	display: flex;
+} */
+
+.current-weather-container {
+	display: flex;
+	align-items: center;
+	vertical-align: middle;
+	border: solid black 2px;
+}
+
+.weather-card {
+	border: solid navy 2px;
+
+}

@@ -16,56 +16,62 @@ var historyEl = document.getElementById("history")
 var fiveDayEl = document.querySelector(".five-day-header")
 
 // getting search history out of local storage
-var searchHistory = JSON.parse(localstorage.getItem("search")) || [];
+var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 
 // assigning api key to variable 
-var apiKey = "840e9ff38c70dacbffbb1d3e4e259ed7"; 
+var apiKey = "840e9ff38c70dacbffbb1d3e4e259ed7";
+
 
 
 function fetchGeo(event) {
 	event.preventDefault()
-  var cityName = cityInputEl.value;
-  fetch(
-	"http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&appid=" + apiKey
-  )
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      console.log(data);
-	fetchWeather(data[0].lat, data[0].lon)
-    });
+	var cityName = cityInputEl.value;
+	fetch(
+		"http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&appid=" + apiKey
+	)
+		.then((response) => {
+			return response.json();
+		})
+		.then((data) => {
+			console.log(data);
+			fetchWeather(data[0].lat, data[0].lon)
+		});
 }
 
 
 
 function fetchWeather(lat, lon, cityName) {
-console.log(lat, lon)
-fetch(
-    "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&cnt=6&appid=" + apiKey
-  )
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      console.log(data);
-	  var dayArray = [data.list[6], data.list[14], data.list[22], data.list[30], data.list[38]];
-  
-	  for (var i = 0; i < dayArray.length; i++) {
-		  console.log(dayArray[i]);
-	  }
-    });
+	console.log(lat, lon)
+	fetch(
+		"http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&cnt=6&appid=" + apiKey
+	)
+		.then((response) => {
+			return response.json();
+		})
+		.then((data) => {
+			console.log(data);
+
+
+			for (var i = 0; i < data.length; i++) {
+				var cityTitle = document.createElement("h3");
+				cityTitle.textContent = data[i].tite;
+				cityNameEl.append(cityTitle);
+			}
+		});
 
 }
 formEl.addEventListener("submit", fetchGeo);
 
 
-var displayWeather = function(data) {
-var { name } = data;
-var { icon, description } = data.weather[0];
-var { temp, humidity } = data.main;
-var { speed } = data.wind;
-console.log(name, icon, description, temp, humidity, speed);
+var displayWeather = function (data) {
+	var { name } = data;
+	var { icon, description } = data.weather[0];
+	var { temp, humidity } = data.main;
+	var { speed } = data.wind;
+	console.log(name, icon, description, temp, humidity, speed);
+
 }
 
 // Yes. If you update the fetch url for fetchWeather, take a look at what data it returns and use that to add the days to your array.
+
+// take collected data and create associated list item, then append to <ul>
