@@ -52,10 +52,24 @@ function fetchWeather(lat, lon, cityName) {
 			console.log(data);
 
 
-			for (var i = 0; i < data.length; i++) {
+			for (var i = 0; i < 5; i++) {
 				var cityTitle = document.createElement("h3");
-				cityTitle.textContent = data[i].tite;
+				var currentDate = document.createElement("h3");
+				var currentIcon = document.createElement("h3");
+				var currentTemp = document.createElement("p");
+				var currentWind = document.createElement("p");
+				var currentHumidity = document.createElement("p");
+				var fiveDay = document.createElement("card")
+				cityTitle.textContent = data[i].name;
+
 				cityNameEl.append(cityTitle);
+				currentHumidityEl.append(currentWind);
+				currentWindEl.append(currentTemp);
+				currentTempEl.append(currentIcon);
+				currentIconEl.append(currentDate);
+				currentDateEl.append(fiveDay);
+
+				// append frm buttom up- humidty to wind, wind to temp, temp to icon, icon to date, date to 5 day card
 			}
 		});
 
