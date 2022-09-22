@@ -1,5 +1,7 @@
 var cityInputEl = document.querySelector(".city-input");
 var formEl = document.querySelector(".form");
+var searchEl = document.querySelector(".search-button");
+var historyEl = document.getElementById("history");
 var clearHistoryEl = document.querySelector(".clear-history");
 
 // current data var
@@ -113,3 +115,18 @@ function convertDate(date) {
   return new Date(date * 1000).toLocaleDateString("en-US");
 }
 
+// get history from local storage
+searchEl.addEventListener("click", function() {
+var searchTerm = cityInputEl.value;
+fetchGeo(searchTerm);
+searchHistory.push(searchTerm);
+localStorage.setItem("search", JSON.stringify(searchHistory));
+renderSearchHistory();
+})
+
+function renderSearchHistory() {
+historyEl.innerHtml = "";
+for (let i = 0; i < searchHistory.length; i++) {
+	
+}
+}
