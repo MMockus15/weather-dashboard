@@ -1,6 +1,6 @@
 var cityInputEl = document.querySelector(".city-input");
 var formEl = document.querySelector(".form");
-var searchEl = document.querySelector(".search-button");
+// var searchEl = document.querySelector(".search-button");
 var historyEl = document.getElementById("history");
 var clearHistoryEl = document.querySelector(".clear-history");
 
@@ -16,8 +16,8 @@ var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 // assigning api key to variable
 var apiKey = "d91f911bcf2c0f925fb6535547a5ddc9";
 
-function fetchGeo(event) {
-  event.preventDefault();
+function fetchGeo() {
+//   event.preventDefault();
   var cityName = cityInputEl.value;
   fetch(
     "http://api.openweathermap.org/geo/1.0/direct?q=" +
@@ -48,7 +48,7 @@ function fetchWeather(lat, lon, cityName) {
       currentWeather(data, cityName);
     });
 }
-formEl.addEventListener("submit", fetchGeo);
+// formEl.addEventListener("submit", fetchGeo);
 
 function displayWeather(data) {
   for (var i = 0; i < 5; i++) {
@@ -82,6 +82,7 @@ function currentWeather(data, city) {
   var currentDate = document.createElement("h3");
   var currentIcon = document.createElement("img");
   var headerCurrentEl = document.createElement("div");
+  headerCurrentEl.setAttribute("class", "form-control text-justify");
   var currentTemp = document.createElement("p");
   var currentWind = document.createElement("p");
   var currentHumidity = document.createElement("p");
@@ -116,7 +117,8 @@ function convertDate(date) {
 }
 
 // get history from local storage
-searchEl.addEventListener("click", function() {
+formEl.addEventListener("submit", function(event) {
+	event.preventDefault()
 var searchTerm = cityInputEl.value;
 fetchGeo(searchTerm);
 searchHistory.push(searchTerm);
@@ -127,6 +129,20 @@ renderSearchHistory();
 function renderSearchHistory() {
 historyEl.innerHtml = "";
 for (let i = 0; i < searchHistory.length; i++) {
-	
+var historyInputsEl = document.createElement("input");
+historyInputsEl.setAttribute("type", "text");
+historyInputsEl.setAttribute("readonly", true);
+historyInputsEl.setAttribute("class", "form-control d-block bg-white");
+historyInputsEl.setAttribute("value", searchHistory[i]);
+historyInputsEl.setAttribute("click", function() {
+	fetchGeo(historyInputsEl.value);
+})
+historyEl.append(historyInputsEl);
+
+	}
 }
+
+renderSearchHistory();
+if (searchHistory.length > 0) {
+	fetchGeo(searchHistory[searchHistory.length - 1]);
 }

@@ -6,9 +6,7 @@ body {
 	font: white;	
 }
 
-/* .form {
-	display: flex;
-} */
+
 
 .current-weather-container {
 	display: flex;
@@ -17,7 +15,11 @@ body {
 	border: solid black 2px;
 }
 
-.weather-card {
+/* .weather-card {
 	border: solid navy 2px;
 
+} */
+
+.five-day-container {
+	padding: 2px;
 }
