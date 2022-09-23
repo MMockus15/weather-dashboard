@@ -11,7 +11,7 @@ var currentWeatherEl = document.querySelector(".current-weather-container");
 var fiveDayContainer = document.querySelector(".five-day-container");
 
 // getting search history out of local storage
-var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
+// var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 
 // assigning api key to variable
 var apiKey = "d91f911bcf2c0f925fb6535547a5ddc9";
@@ -60,6 +60,7 @@ function displayWeather(data) {
     var currentWind = document.createElement("p");
     var currentHumidity = document.createElement("p");
     var card = document.createElement("div");
+	card.setAttribute("class", "p-4");
     currentDate.textContent = convertDate(data.daily[i].dt);
     currentIcon.src = `https://openweathermap.org/img/w/${data.daily[i].weather[0].icon}.png`;
     currentTemp.textContent = `Temp: ${data.daily[i].temp.day}°F`;
@@ -79,14 +80,21 @@ function displayWeather(data) {
 
 function currentWeather(data, city) {
   var cityName = document.createElement("h1");
+  cityName.setAttribute("class", "m-4");
   var currentDate = document.createElement("h3");
+  currentDate.setAttribute("class", "m-4");
   var currentIcon = document.createElement("img");
-  var headerCurrentEl = document.createElement("div");
-  headerCurrentEl.setAttribute("class", "form-control text-justify");
+  currentIcon.setAttribute("class", "m-4");
+  var headerCurrentEl = document.querySelector(".headerCurrentEl");
+
   var currentTemp = document.createElement("p");
+  currentTemp.setAttribute("class", "m-2");
   var currentWind = document.createElement("p");
+  currentWind.setAttribute("class", "m-2");
   var currentHumidity = document.createElement("p");
+  currentHumidity.setAttribute("class", "m-2");
   var currentUVIndex = document.createElement("p");
+  currentUVIndex.setAttribute("class", "m-2");
   cityName.textContent = city;
   currentDate.textContent = convertDate(data.current.dt);
   currentIcon.src = `https://openweathermap.org/img/w/${data.current.weather[0].icon}.png`;
@@ -127,17 +135,19 @@ renderSearchHistory();
 })
 
 function renderSearchHistory() {
+var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 historyEl.innerHtml = "";
 for (let i = 0; i < searchHistory.length; i++) {
-var historyInputsEl = document.createElement("input");
-historyInputsEl.setAttribute("type", "text");
-historyInputsEl.setAttribute("readonly", true);
-historyInputsEl.setAttribute("class", "form-control d-block bg-white");
-historyInputsEl.setAttribute("value", searchHistory[i]);
-historyInputsEl.setAttribute("click", function() {
-	fetchGeo(historyInputsEl.value);
+var historyInputBtn = document.createElement("button");
+// historyInputBtn.setAttribute("type", "text");
+historyInputBtn.setAttribute("readonly", true);
+historyInputBtn.setAttribute("class", "button form-control d-block bg-white m-3");
+// historyInputBtn.setAttribute("value", searchHistory[i]);
+historyInputBtn.textContent = searchHistory[i];
+historyInputBtn.setAttribute("click", function() {
+	fetchGeo(historyInputBtn.value);
 })
-historyEl.append(historyInputsEl);
+historyEl.append(historyInputBtn);
 
 	}
 }

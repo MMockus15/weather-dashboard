@@ -1,25 +1,36 @@
+* {
+	/* border: solid black 2px; */
+}
+
 body {
 	height: 100vh;
 	margin: 0;
 	background: rgb(132, 127, 127);
-	/* background-image: url("./images/lightening.jpg"); */
 	font: white;	
 }
 
+.button {
+	width: 80%;
+}
 
+.search-aside {
+	float: left;
+	width: 20%;
+	padding: 2px;
+}
 
 .current-weather-container {
 	display: flex;
 	align-items: center;
 	vertical-align: middle;
 	border: solid black 2px;
+	width: 95%;
+	background-color: whitesmoke;
 }
 
-/* .weather-card {
-	border: solid navy 2px;
-
-} */
 
 .five-day-container {
+	margin: 2px;
+	width: 95%;
 	padding: 2px;
 }

@@ -19,33 +19,35 @@
 	</header>
 
 	<main>
-		<div>
+		<div class="search-aside d-flex flex-column justify-content-around m-3">
 			<!-- city form entry -->
-			<form class="form col-3">
-				<h3>Search for a City:</h3>
-				<input class="city-input" />
-				<button class="search-button btn-primary btn-block" type="submit">
+			<form class="form d-flex flex-column">
+				<h3 class="m-3">Search for a City:</h3>
+				<input class=" button city-input m-3" />
+				<button class="button search-button btn-primary btn-block m-3" type="submit">
 					Search
 				</button>
 			</form>
-		</div>
-
-		<div class="clearHistoryContainer col-3">
-			<button class="clear-history btn-primary btn-block">
-				Clear History
-			</button>
-			<form id="history"></form>
-		</div>
-
-		<div class="headerCurrentEl"></div>
-		<div class="current-weather-container border-dark col-lg-11 card m-3">
-		</div>
-
-		<div class="five-day-container display-flex row-col-sm-3 card-deck text-white bg-primary mb-3">
-			<div class="five-day-header">
-				<h3>5-Day Forcast</h3>
+			<div class="clearHistoryContainer d-flex flex-column">
+				<button class="button clear-history btn-primary btn-block m-3">
+					Clear History
+				</button>
+				<form id="history"></form>
 			</div>
 		</div>
+
+<div class="d-flex flex-column m-3">
+	<div class="current-weather-container m-3 d-flex flex-column align-items-start">
+		<div class="headerCurrentEl d-flex align-items-center" style="width: 100%"></div>
+	</div>
+
+	<div class="five-day-header m-3">
+		<h3>5-Day Forcast:</h3>
+	</div>
+
+		<div class="five-day-container d-flex justify-content-between text-white bg-primary m-3">
+		</div>
+	</div>
 	</main>
 	<div id="root"></div>
 	<!-- my js script -->
