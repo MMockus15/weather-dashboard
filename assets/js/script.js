@@ -10,15 +10,10 @@ var currentWeatherEl = document.querySelector(".current-weather-container");
 // five day forcast var
 var fiveDayContainer = document.querySelector(".five-day-container");
 
-// getting search history out of local storage
-// var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
-
 // assigning api key to variable
 var apiKey = "d91f911bcf2c0f925fb6535547a5ddc9";
 
-function fetchGeo() {
-//   event.preventDefault();
-  var cityName = cityInputEl.value;
+function fetchGeo(cityName) {
   fetch(
     "http://api.openweathermap.org/geo/1.0/direct?q=" +
       cityName +
@@ -129,14 +124,17 @@ var searchTerm = cityInputEl.value;
 console.log(searchTerm);
 var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 console.log(searchHistory);
-// var cityObj = fetchGeo(searchTerm);
 // console.log(cityObj)
 searchHistory.push(searchTerm);
-localStorage.setItem("search", JSON.stringify(searchHistory));
+var finalSearchHistory = [...new Set(searchHistory)];
+// push array thru new set, takes array and runs thru it without any duplicates
+localStorage.setItem("search", JSON.stringify(finalSearchHistory));
+fetchGeo(searchTerm);
 renderSearchHistory();
 })
 
 function renderSearchHistory() {
+	// remove all children of div that buttons are in/remove siblings
 var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 console.log(searchHistory);
 historyEl.innerHtml = "";
@@ -153,13 +151,15 @@ historyEl.append(historyInputBtn);
 
 	}
 }
+renderSearchHistory();
 
 var savedCityBtns = document.querySelectorAll(".history-button");
 for (var i = 0; i < savedCityBtns.length; i++) {
 savedCityBtns[i].addEventListener("click", function (event) {
 	event.preventDefault();
-	var selectedCity = $(this).attr("data-city");
+	var selectedCity = event.target.getAttribute("data-city");
 	fetchGeo(selectedCity);
+	console.log(selectedCity);
 })
 };
 
