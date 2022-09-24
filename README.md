@@ -4,7 +4,7 @@ For module 6's challenge we were asked to create a weather app displaying the cu
 
 ![weather-app-screen-shot](./assets/images/weather-dashboard.png)
 
-[deployed site](https://mmockus15.github.io/work-day-scheduler/)
+[deployed site](https://mmockus15.github.io/weather-dashboard/)
 
 Accetance Criteria:
 
