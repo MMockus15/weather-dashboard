@@ -165,13 +165,10 @@ savedCityBtns[i].addEventListener("click", function (event) {
 })
 };
 
-function deleteAllHistory (event) {
-clearHistoryEl.addEventListener("click")
-}
-// document.querySelector(".history-button").addEventListener("click", (event)=>{
+clearHistoryEl.addEventListener("click", function(){
+	localStorage.clear()
+	})
 
 
 
-// click on a button to get name
-// fetchGeo(name value)
 
