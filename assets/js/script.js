@@ -48,7 +48,7 @@ function fetchWeather(lat, lon, cityName) {
       currentWeather(data, cityName);
     });
 }
-// formEl.addEventListener("submit", fetchGeo);
+
 
 function displayWeather(data) {
   for (var i = 0; i < 5; i++) {
@@ -110,9 +110,6 @@ headerCurrentEl.append(
 )
   currentWeatherEl.append(
 	headerCurrentEl,
-    // cityName,
-    // currentDate,
-    // currentIcon,
     currentTemp,
     currentWind,
     currentHumidity,
@@ -121,6 +118,7 @@ headerCurrentEl.append(
 }
 
 function convertDate(date) {
+	var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
   return new Date(date * 1000).toLocaleDateString("en-US");
 }
 
@@ -128,7 +126,11 @@ function convertDate(date) {
 formEl.addEventListener("submit", function(event) {
 	event.preventDefault()
 var searchTerm = cityInputEl.value;
-fetchGeo(searchTerm);
+console.log(searchTerm);
+var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
+console.log(searchHistory);
+// var cityObj = fetchGeo(searchTerm);
+// console.log(cityObj)
 searchHistory.push(searchTerm);
 localStorage.setItem("search", JSON.stringify(searchHistory));
 renderSearchHistory();
@@ -136,14 +138,14 @@ renderSearchHistory();
 
 function renderSearchHistory() {
 var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
+console.log(searchHistory);
 historyEl.innerHtml = "";
 for (let i = 0; i < searchHistory.length; i++) {
 var historyInputBtn = document.createElement("button");
-// historyInputBtn.setAttribute("type", "text");
 historyInputBtn.setAttribute("readonly", true);
-historyInputBtn.setAttribute("class", "button form-control d-block bg-white m-3");
-// historyInputBtn.setAttribute("value", searchHistory[i]);
-historyInputBtn.textContent = searchHistory[i];
+historyInputBtn.setAttribute("class", "button history-button form-control d-block bg-white m-3");
+historyInputBtn.setAttribute("data-city", searchHistory[i])
+historyInputBtn.textContent = searchHistory[i]
 historyInputBtn.setAttribute("click", function() {
 	fetchGeo(historyInputBtn.value);
 })
@@ -152,7 +154,22 @@ historyEl.append(historyInputBtn);
 	}
 }
 
-renderSearchHistory();
-if (searchHistory.length > 0) {
-	fetchGeo(searchHistory[searchHistory.length - 1]);
-}
+var savedCityBtns = document.querySelectorAll(".history-button");
+for (var i = 0; i < savedCityBtns.length; i++) {
+savedCityBtns[i].addEventListener("click", function (event) {
+	event.preventDefault();
+	var selectedCity = $(this).attr("data-city");
+	fetchGeo(selectedCity);
+})
+};
+
+
+// document.querySelector(".history-button").addEventListener("click", (event)=>{
+// 	event.preventDefault();
+// 	var cityName = event.target.textContent
+// 	console.log(cityName)
+
+
+// click on a button to get name
+// fetchGeo(name value)
+
