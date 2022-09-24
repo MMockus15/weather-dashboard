@@ -1,6 +1,7 @@
 var cityInputEl = document.querySelector(".city-input");
 var formEl = document.querySelector(".form");
-// var searchEl = document.querySelector(".search-button");
+
+// clear history vars
 var historyEl = document.getElementById("history");
 var clearHistoryEl = document.querySelector(".clear-history");
 
@@ -62,6 +63,7 @@ function displayWeather(data) {
     currentWind.textContent = `Wind: ${data.daily[i].wind_speed}`;
     currentHumidity.textContent = `Humidity: ${data.daily[i].humidity}`;
 
+	fiveDayContainer,innerHtml = ""
     card.append(
       currentDate,
       currentIcon,
@@ -74,6 +76,7 @@ function displayWeather(data) {
 }
 
 function currentWeather(data, city) {
+
   var cityName = document.createElement("h1");
   cityName.setAttribute("class", "m-4");
   var currentDate = document.createElement("h3");
@@ -98,11 +101,12 @@ function currentWeather(data, city) {
   currentHumidity.textContent = `Humidity: ${data.current.humidity}`;
   currentUVIndex.text = `UV Index: ${data.current.uvi}`;
 
-headerCurrentEl.append(
-	cityName,
-	currentDate,
-	currentIcon,
-)
+  headerCurrentEl.innerHtml = ""
+  headerCurrentEl.append(
+	  cityName,
+	  currentDate,
+	  currentIcon,
+	  )
   currentWeatherEl.append(
 	headerCurrentEl,
     currentTemp,
@@ -124,7 +128,6 @@ var searchTerm = cityInputEl.value;
 console.log(searchTerm);
 var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 console.log(searchHistory);
-// console.log(cityObj)
 searchHistory.push(searchTerm);
 var finalSearchHistory = [...new Set(searchHistory)];
 // push array thru new set, takes array and runs thru it without any duplicates
@@ -137,7 +140,6 @@ function renderSearchHistory() {
 	// remove all children of div that buttons are in/remove siblings
 var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 console.log(searchHistory);
-historyEl.innerHtml = "";
 for (let i = 0; i < searchHistory.length; i++) {
 var historyInputBtn = document.createElement("button");
 historyInputBtn.setAttribute("readonly", true);
@@ -163,11 +165,11 @@ savedCityBtns[i].addEventListener("click", function (event) {
 })
 };
 
-
+function deleteAllHistory (event) {
+clearHistoryEl.addEventListener("click")
+}
 // document.querySelector(".history-button").addEventListener("click", (event)=>{
-// 	event.preventDefault();
-// 	var cityName = event.target.textContent
-// 	console.log(cityName)
+
 
 
 // click on a button to get name
