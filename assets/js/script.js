@@ -47,7 +47,7 @@ function fetchWeather(lat, lon, cityName) {
 
 
 function displayWeather(data) {
-	fiveDayContainer.innerHtml = ""
+	fiveDayContainer.textContent = "";
   for (var i = 0; i < 5; i++) {
     // create elements
 
@@ -108,7 +108,7 @@ function currentWeather(data, city) {
 	  currentDate,
 	  currentIcon,
 	  )
-	  currentWeatherEl.innerHtml = "";
+	  currentWeatherEl.textContent = "";
   currentWeatherEl.append(
 	headerCurrentEl,
     currentTemp,
