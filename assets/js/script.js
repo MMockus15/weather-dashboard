@@ -47,6 +47,7 @@ function fetchWeather(lat, lon, cityName) {
 
 
 function displayWeather(data) {
+	fiveDayContainer.innerHtml = ""
   for (var i = 0; i < 5; i++) {
     // create elements
 
@@ -63,7 +64,6 @@ function displayWeather(data) {
     currentWind.textContent = `Wind: ${data.daily[i].wind_speed}`;
     currentHumidity.textContent = `Humidity: ${data.daily[i].humidity}`;
 
-	fiveDayContainer,innerHtml = ""
     card.append(
       currentDate,
       currentIcon,
@@ -76,6 +76,7 @@ function displayWeather(data) {
 }
 
 function currentWeather(data, city) {
+	
 
   var cityName = document.createElement("h1");
   cityName.setAttribute("class", "m-4");
@@ -101,12 +102,13 @@ function currentWeather(data, city) {
   currentHumidity.textContent = `Humidity: ${data.current.humidity}`;
   currentUVIndex.text = `UV Index: ${data.current.uvi}`;
 
-  headerCurrentEl.innerHtml = ""
+  headerCurrentEl.innerHTML = "";
   headerCurrentEl.append(
 	  cityName,
 	  currentDate,
 	  currentIcon,
 	  )
+	  currentWeatherEl.innerHtml = "";
   currentWeatherEl.append(
 	headerCurrentEl,
     currentTemp,
@@ -137,6 +139,7 @@ renderSearchHistory();
 })
 
 function renderSearchHistory() {
+	historyEl.innerHTML = "";
 	// remove all children of div that buttons are in/remove siblings
 var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 console.log(searchHistory);
